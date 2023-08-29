@@ -1,0 +1,16 @@
+[
+{
+  "modid": "viewlock",
+  "name": "View Lock",
+  "description": "Lock your view to a specific axis or position!",
+  "version": "1.1.0",
+  "mcversion": "1.8.9",
+  "url": "https://curseforge.com/minecraft/mc-mods/view-lock",
+  "updateUrl": "",
+  "authorList": ["Famro Fexl"],
+  "credits": "",
+  "logoFile": "assets/viewlock/logo.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]
