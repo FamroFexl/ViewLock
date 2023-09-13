@@ -31,6 +31,8 @@ body:
     label: Minecraft version(s) used
     description: What version(s) of Minecraft did this bug occur in?
     placeholder: "i.e. v1.8.9, v1.12.2, v1.18.1, etc.)"
+  validations:
+    required: true
 - type: input
   attributes:
     label: Other mods used
