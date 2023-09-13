@@ -1,0 +1,46 @@
+name: Bug Report
+description: Report Problems with Shulker Loader
+title: "[Bug]: "
+labels: "bug"
+body:
+- type: input
+  attributes:
+    label: Describe the Bug
+    description: A clear and concise description of what the bug is.
+  validations:
+    required: true
+- type: input
+  attributes:
+    label: Mod version(s) affected
+    description: On what version(s) of the mod did this problem occur?
+    placeholder: "i.e. v1.0, v1.0.1, v1.1.3, etc.)"
+  validations:
+    required: true
+- type: dropdown
+  attributes:
+    label: Mod loader(s) used
+    description: What Minecraft modloader(s) did you use?
+    multiple: true
+    options:
+      - Fabric
+      - Forge
+  validations:
+    required: true
+- type: input
+  attributes:
+    label: Minecraft version(s) used
+    description: What version(s) of Minecraft did this bug occur in?
+    placeholder: "i.e. v1.8.9, v1.12.2, v1.18.1, etc.)"
+- type: input
+  attributes:
+    label: Other mods used
+    description: What other mods were running at the same time?
+    placeholder: "i.e. Optifine, Sodium, JourneyMap, etc.)"
+- type: textarea
+  attributes:
+    label: To Reproduce (If applicable)
+    description: What actions and conditions were required to make the bug occur?
+- type: textarea
+  attributes:
+    label: Additional Information
+    description: Other context you think might be useful.
