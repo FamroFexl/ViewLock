@@ -1,0 +1,9 @@
+{
+	"key.viewlock.axisalign.name":"Axis Align",
+	"key.viewlock.pitch.name":"Pitch Toggle",
+	"key.viewlock.yaw.name":"Yaw Toggle",
+	"key.viewlock.category":"View Lock",
+	"commands.vl.usage":"/vl <pitch> [yaw]",
+	"commands.vl.pitchTooLarge":"Pitch must be between %d and %d",
+	"commands.vl.yawTooLarge":"Yaw must be between %d and %d"
+}

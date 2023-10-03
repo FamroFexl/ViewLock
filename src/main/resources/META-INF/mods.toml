@@ -1,0 +1,13 @@
+modLoader="javafml"
+loaderVersion="[41,49)"
+license="MIT License"
+issueTrackerURL="https://github.com/FamroFexl/ViewLock/issues"
+[[mods]]
+modId="viewlock"
+version="1.1.0"
+displayName="View Lock"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/view-lock"
+logoFile="assets/viewlock/logo.png"
+credits=""
+authors="Famro Fexl"
+description="Lock your view to a specific axis or position!"
