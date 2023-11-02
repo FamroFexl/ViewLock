@@ -1,8 +1,10 @@
 package com.fexl.viewlock.client.commands;
 
 import com.fexl.viewlock.ViewModify;
+import com.fexl.viewlock.mixin.PlayerTeleport;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.FloatArgumentType;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
@@ -14,10 +16,12 @@ public class DegreeLockCommand {
 	public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {
 		dispatcher.register(literal("vl")
 		.executes(null)
+				.then(argument("relock", StringArgumentType.word()).executes(DegreeLockCommand::relock))
 				.then(argument("pitch", FloatArgumentType.floatArg(-90, 90))
 				.executes(DegreeLockCommand::run)
 						.then(argument("yaw", FloatArgumentType.floatArg(-180, 180))
-						.executes(DegreeLockCommand::run))));
+						.executes(DegreeLockCommand::run)))
+		);
 	}
 	
 	public static int run(CommandContext<FabricClientCommandSource> context) throws CommandSyntaxException {
@@ -35,10 +39,22 @@ public class DegreeLockCommand {
 		}
 		
 		//Set the view locked
-		ViewModify.pitchLock = true;
-		ViewModify.yawLock = true;
-		ViewModify.axisAlignLock = true;
+		ViewModify.setPitchLocked(true);
+		ViewModify.setYawLocked(true);
+		ViewModify.setAxisAlignLocked(true);
 		
 		return 1;
+	}
+	
+	public static int relock(CommandContext<FabricClientCommandSource> context) throws CommandSyntaxException {
+		//System.out.println("Relock executed with command \"" + StringArgumentType.getString(context, "relock") + "\"");
+		if(StringArgumentType.getString(context, "relock").equals("relock")) {
+			System.out.println("Relock string gotten!");
+			ViewModify.setPitchLocked(ViewModify.lastPitchLock);
+			ViewModify.setYawLocked(ViewModify.lastYawLock);
+			ViewModify.setAxisAlignLocked(ViewModify.lastAxisAlignLock);
+			return 1;
+		}
+		return 0;
 	}
 }

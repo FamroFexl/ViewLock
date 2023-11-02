@@ -4,15 +4,43 @@ import net.minecraft.client.player.LocalPlayer;
 
 public class ViewModify {
 	//Storage for pitch and yaw lock which remain constant between frames
-	public static boolean pitchLock = false;
-	public static boolean yawLock = false;
+	private static boolean pitchLock = false;
+	private static boolean yawLock = false;
 	
 	//Checks if the axisAlignKey has been activated before
-	public static boolean axisAlignLock = false;
+	private static boolean axisAlignLock = false;
+	
+	public static boolean lastPitchLock = false;
+	public static boolean lastYawLock = false;
+	public static boolean lastAxisAlignLock = false;
 		
 	//Used for keeping the player view static if no keys were pressed
 	public static float lastPitch = 0F;
 	public static float lastYaw = 0F;
+	
+	public static boolean getPitchLocked() {
+		return pitchLock;
+	}
+	
+	public static void setPitchLocked(boolean pitchLock) {
+		ViewModify.pitchLock = pitchLock;
+	}
+	
+	public static boolean getYawLocked() {
+		return yawLock;
+	}
+	
+	public static void setYawLocked(boolean yawLock) {
+		ViewModify.yawLock = yawLock;
+	}
+	
+	public static boolean getAxisAlignLocked() {
+		return axisAlignLock;
+	}
+	
+	public static void setAxisAlignLocked(boolean axisAlignLock) {
+		ViewModify.axisAlignLock = axisAlignLock;
+	}
 	
 	public static void changeView(LocalPlayer player) {
 		//Get current player pitch and yaw

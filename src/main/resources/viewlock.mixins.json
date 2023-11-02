@@ -6,7 +6,8 @@
   "mixins": [
   ],
   "client": [
-    "ScreenRender"
+    "ScreenRender",
+    "PlayerTeleport"
   ],
   "injectors": {
     "defaultRequire": 1

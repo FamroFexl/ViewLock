@@ -16,9 +16,8 @@ public class ScreenRender {
 	//Activated every frame per second
 	@Inject(method = "Lnet/minecraft/client/Minecraft;runTick(Z)V", at = @At("HEAD"))
 	public void screenRender(CallbackInfo info) {
-		//Get the client player (fix resource leak)
 		LocalPlayer player = Minecraft.getInstance().player;
-
+		
 		//Don't activate when not in a world
 		if(player == null)
 			return;
