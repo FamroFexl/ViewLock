@@ -9,10 +9,38 @@ public class ViewModify {
 	
 	//Checks if the axisAlignKey has been activated before
 	public static boolean axisAlignLock = false;
+	
+	public static boolean lastPitchLock = false;
+	public static boolean lastYawLock = false;
+	public static boolean lastAxisAlignLock = false;
 		
 	//Used for keeping the player view static if no keys were pressed
 	public static float lastPitch = 0F;
 	public static float lastYaw = 0F;
+	
+	public static boolean getPitchLocked() {
+		return pitchLock;
+	}
+	
+	public static void setPitchLocked(boolean pitchLock) {
+		ViewModify.pitchLock = pitchLock;
+	}
+	
+	public static boolean getYawLocked() {
+		return yawLock;
+	}
+	
+	public static void setYawLocked(boolean yawLock) {
+		ViewModify.yawLock = yawLock;
+	}
+	
+	public static boolean getAxisAlignLocked() {
+		return axisAlignLock;
+	}
+	
+	public static void setAxisAlignLocked(boolean axisAlignLock) {
+		ViewModify.axisAlignLock = axisAlignLock;
+	}
 	
 	public static void changeView(LocalPlayer player) {
 		//Get current player pitch and yaw
