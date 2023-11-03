@@ -25,19 +25,24 @@ public class PlayerTeleport {
 	@Inject(method = "handleMovePlayer(Lnet/minecraft/network/protocol/game/ClientboundPlayerPositionPacket;)V", at = @At("HEAD"), locals = LocalCapture.CAPTURE_FAILSOFT)
 	public void playerTeleport(ClientboundPlayerPositionPacket clientboundPlayerPositionPacket, CallbackInfo info) {
 		LocalPlayer player = Minecraft.getInstance().player;
-		//clientboundPlayerPositionPacket.
 		
-		//Don't activate when not in a world
-		if(player == null) {
+		//Don't activate when not in a world or on a public server
+		if(player == null || Minecraft.getInstance().isLocalServer() || Minecraft.getInstance().getCurrentServer().isLan()) {
 			return;
 		}
-		
+				
 		//More than 1 tick between teleport requests so "Player moved too quickly!" warnings don't accumulate
 		if(Minecraft.getInstance().level.getGameTime() < lastTime+2) {
 			lastTime = Minecraft.getInstance().level.getGameTime();
 			return;
 		}
 		lastTime = Minecraft.getInstance().level.getGameTime();
+				
+				
+		//The player's view isn't locked, so unlocking is unecessary
+		if(!ViewModify.getPitchLocked() && !ViewModify.getYawLocked() && !ViewModify.getAxisAlignLocked()) {
+			return;
+		}
 		
 		ViewModify.lastPitchLock = ViewModify.getPitchLocked();
 		ViewModify.lastYawLock = ViewModify.getYawLocked();

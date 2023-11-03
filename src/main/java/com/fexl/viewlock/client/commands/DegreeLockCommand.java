@@ -16,11 +16,11 @@ public class DegreeLockCommand {
 	public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {
 		dispatcher.register(literal("vl")
 		.executes(null)
-				.then(argument("relock", StringArgumentType.word()).executes(DegreeLockCommand::relock))
 				.then(argument("pitch", FloatArgumentType.floatArg(-90, 90))
 				.executes(DegreeLockCommand::run)
 						.then(argument("yaw", FloatArgumentType.floatArg(-180, 180))
 						.executes(DegreeLockCommand::run)))
+				.then(argument("lock", StringArgumentType.word()).executes(DegreeLockCommand::lock))
 		);
 	}
 	
@@ -46,13 +46,23 @@ public class DegreeLockCommand {
 		return 1;
 	}
 	
-	public static int relock(CommandContext<FabricClientCommandSource> context) throws CommandSyntaxException {
-		//System.out.println("Relock executed with command \"" + StringArgumentType.getString(context, "relock") + "\"");
-		if(StringArgumentType.getString(context, "relock").equals("relock")) {
-			System.out.println("Relock string gotten!");
+	//Unlock or relock the player's view
+	public static int lock(CommandContext<FabricClientCommandSource> context) throws CommandSyntaxException {
+		if(StringArgumentType.getString(context, "lock").equals("relock")) {
 			ViewModify.setPitchLocked(ViewModify.lastPitchLock);
 			ViewModify.setYawLocked(ViewModify.lastYawLock);
 			ViewModify.setAxisAlignLocked(ViewModify.lastAxisAlignLock);
+			return 1;
+		}
+		
+		if(StringArgumentType.getString(context, "lock").equals("unlock")) {
+			ViewModify.lastPitchLock = ViewModify.getPitchLocked();
+			ViewModify.lastYawLock = ViewModify.getYawLocked();
+			ViewModify.lastAxisAlignLock = ViewModify.getAxisAlignLocked();
+			
+			ViewModify.setPitchLocked(false);
+			ViewModify.setYawLocked(false);
+			ViewModify.setAxisAlignLocked(false);
 			return 1;
 		}
 		return 0;
