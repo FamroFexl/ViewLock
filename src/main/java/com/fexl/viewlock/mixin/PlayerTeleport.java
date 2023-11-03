@@ -33,7 +33,7 @@ public class PlayerTeleport {
 		}
 		
 		//More than 1 tick between teleport requests so "Player moved too quickly!" warnings don't accumulate
-		if(Minecraft.getInstance().level.getGameTime() < lastTime+1) {
+		if(Minecraft.getInstance().level.getGameTime() < lastTime+2) {
 			lastTime = Minecraft.getInstance().level.getGameTime();
 			return;
 		}
