@@ -2,7 +2,8 @@ package com.fexl.viewlock;
 
 import org.lwjgl.glfw.GLFW;
 
-import com.fexl.viewlock.client.commands.DegreeLockCommand;
+import com.fexl.viewlock.client.commands.ViewLockCommand;
+import com.fexl.viewlock.event.ClientFrameRenderEvents;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.brigadier.CommandDispatcher;
 
@@ -11,7 +12,10 @@ import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallba
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandBuildContext;
+import net.minecraft.world.InteractionResult;
 
 public class ViewLock implements ClientModInitializer {
 	
@@ -24,6 +28,14 @@ public class ViewLock implements ClientModInitializer {
 	public void onInitializeClient() {
 		//Register client-side commands
 		ClientCommandRegistrationCallback.EVENT.register(ViewLock::registerClientCommands);
+		ClientFrameRenderEvents.FRAME_RENDER.register(() -> {
+			LocalPlayer player = Minecraft.getInstance().player;
+			if(player == null) {
+				return InteractionResult.FAIL;
+			}
+			ViewModify.changeView(player);
+			return InteractionResult.PASS;
+		});
 		
 		//Defines the axis-align key (default "Y")
 		axisAlignKey = KeyBindingHelper.registerKeyBinding(new KeyMapping(
@@ -52,7 +64,7 @@ public class ViewLock implements ClientModInitializer {
 	
 	//Function for client-side command registering
 	public static void registerClientCommands(CommandDispatcher<FabricClientCommandSource> dispatcher, CommandBuildContext registryAccess) {
-		DegreeLockCommand.register(dispatcher);
+		ViewLockCommand.register(dispatcher);
 	}
 
 }
