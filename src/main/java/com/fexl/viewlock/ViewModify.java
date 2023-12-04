@@ -1,8 +1,11 @@
 package com.fexl.viewlock;
 
-import net.minecraft.client.player.LocalPlayer;
+import com.fexl.viewlock.util.VecAlign;
 
-public class ViewModify {
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.phys.Vec3;
+
+public abstract class ViewModify {
 	//Storage for pitch and yaw lock which remain constant between frames
 	private static boolean pitchLock = false;
 	private static boolean yawLock = false;
@@ -17,6 +20,9 @@ public class ViewModify {
 	//Used for keeping the player view static if no keys were pressed
 	public static float lastPitch = 0F;
 	public static float lastYaw = 0F;
+	
+	public static Vec3 lastPos = new Vec3(0,0,0);
+	public static boolean tracking = false;
 	
 	public static boolean getPitchLocked() {
 		return pitchLock;
@@ -59,8 +65,8 @@ public class ViewModify {
 				break;
 			}
 			//Get the closest axes to the player
-			playerPitch = ViewModify.closestAxisX(playerPitch);
-			playerYaw = ViewModify.closestAxisY(playerYaw);
+			playerPitch = VecAlign.closestAxisX(playerPitch);
+			playerYaw = VecAlign.closestAxisY(playerYaw);
 					
 			//Set the pitch and yaw to the last value when locked
 			lastPitch = playerPitch;
@@ -92,6 +98,12 @@ public class ViewModify {
 				lastYaw = playerYaw;
 			}
 		}
+		
+		if(tracking) {
+			Vec3 playerEyePos = player.position().add(new Vec3(0, player.getEyeHeight(), 0));
+			lastPitch = (float) VecAlign.xAngleBetween(playerEyePos, ViewModify.lastPos);
+			lastYaw = (float) VecAlign.yAngleBetween(playerEyePos, ViewModify.lastPos);
+		}
 				
 		//Don't modify the pitch/yaw from the previous frame if they are locked
 		if(pitchLock)
@@ -100,51 +112,5 @@ public class ViewModify {
 		if(yawLock)
 			playerYaw = lastYaw;
 			player.setYRot(playerYaw);
-	}
-	
-	//Figure out if player is closer to top, bottom, or center of the x axis
-	public static float closestAxisX(float pitch) {
-		//Closer to top
-		if (pitch >= 45)
-			pitch = 90;
-		//Closer to bottom
-		else if (pitch <= -45)
-			pitch = -90;
-		//Closer to middle
-		else
-			pitch = 0;
-		
-		//Return the closest x axis whether perpendicular, x+, or x-
-		return pitch;
-	}
-	
-	//Figure out which y axis direction the player's view is closest to
-	public static float closestAxisY(float yaw) {
-		
-		//Make the yaw greater than -180 or less than 180
-		float modifiedYaw = (yaw % 360);
-		//Positive yaw
-		if(modifiedYaw > 180 && yaw > 0)
-			modifiedYaw -= 360; 
-		//Negative yaw
-		else if (modifiedYaw < -180 && yaw < 0)
-			modifiedYaw += 360;
-		
-		//Closer to south
-		if (modifiedYaw >= -45 && modifiedYaw < 45)
-			yaw = 0;
-		//Closer to west
-		else if (modifiedYaw >= 45 && modifiedYaw < 135)
-			yaw = 90;
-		//Closer to north
-		else if (modifiedYaw >= 135 || modifiedYaw < -135)
-			yaw = 180;
-		//Closer to east
-		else if (modifiedYaw >= -135 && modifiedYaw < -45)
-			yaw = -90;
-		
-		
-		//Return the closest y axis
-		return yaw;
 	}
 }

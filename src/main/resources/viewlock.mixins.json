@@ -6,7 +6,7 @@
   "mixins": [
   ],
   "client": [
-    "ScreenRender",
+    "FrameRender",
     "PlayerTeleport"
   ],
   "injectors": {
