@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.fexl.viewlock.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+  ],
+  "client": [
+    "FrameRender",
+    "PlayerTeleport"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

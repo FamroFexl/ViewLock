@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "viewlock",
+  "version": "1.2",
+
+  "name": "View Lock",
+  "description": "Lock your view to a specific axis or position!",
+  "authors": [
+    "Famro Fexl"
+  ],
+  "contributers": [
+  	"xpple & Earthcomputer for their clientarguments example code",
+  	"Fabricmc.net for its pixel_raycast tutorial"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/view-lock",
+    "sources": "https://github.com/FamroFexl/ViewLock",
+    "issues": "https://github.com/FamroFexl/ViewLock/issues"
+  },
+
+  "license": "MIT License",
+  "icon": "assets/viewlock/icon.png",
+
+  "environment": "client",
+  "entrypoints": {
+  	"main": [
+  	],
+  	"client": [
+  	  "com.fexl.viewlock.ViewLock"
+  	]
+  },
+  "mixins": [
+    "viewlock.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.10",
+    "fabric": "*",
+    "minecraft": ">=1.19",
+    "java": ">=16"
+  }
+}
